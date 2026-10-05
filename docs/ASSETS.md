@@ -12,7 +12,7 @@ The bear illustrations in `assets/images/` were cropped from the sticker sheet i
 | `dumplings.png` | Food and connection |
 | `flowers.png` | Instagram flowers and real bouquet wish |
 | `egypt.png` | Time together in Egypt |
-| `ice-skating.png` | Future date ideas |
+| `ice-skating.png` | Ice-skating date |
 | `hiking.png` | Hiking date idea |
 | `movie-night.png` | Movie date idea |
 | `disneyland.png` | Disneyland date idea |
