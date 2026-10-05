@@ -1,6 +1,7 @@
 const SOUNDS = {
   click: "assets/sounds/click.mp3",
-  yes: "assets/sounds/yes.mp3",
+  yes: "assets/sounds/Yayyy_ Sound Effect [8SoovMIylmA].mp3",
+  no: "assets/sounds/Awh disappointed crowd sound effect [bR_wr5HRdl4].mp3",
   music: "assets/sounds/music.mp3",
 };
 
@@ -9,15 +10,15 @@ const NAME = "Melina";
 const steps = [
   { bear: "travel.png", text: `Hi ${NAME}! I'm David Bear. I have a little story for you. Shall we begin?`,
     buttons: [{ label: "Let's go!", next: true }] },
-  { bear: "travel.png", text: "It started in Tainan, at NCKU Summer School. We explored Alishan and Kenting, and made so many lovely memories.",
+  { bear: "travel.png", text: "It started in Tainan, at NCKU Summer School. We explored Tainan, Alishan and Kenting together, and made so many unforgettable memories.",
     buttons: [{ label: "I remember!", next: true }] },
-  { bear: "bubble-tea.png", text: "We drank so much bubble tea in Taiwan. I still smile when I think about it.",
+  { bear: "bubble-tea.png", text: "We drank so much bubble tea in Taiwan. I still smile when I think about it (you still owe me one by the way)",
     buttons: [{ label: "One more bubble tea?", next: true }] },
-  { bear: "dumplings.png", text: "And we ate so much good food, especially jiaozi! I loved discovering it with you.",
+  { bear: "dumplings.png", text: "And we ate so much good food, especially jiaozi! That one place made good money from us.",
     buttons: [{ label: "Jiaozi was so good", next: true }] },
-  { bear: "heat.png", text: "That Taiwan heat was intense, but it became one of my favorite memories.",
+  { bear: "heat.png", text: "That Taiwan heat was intense, but suffering together made some pretty good memories too, I guess.",
     buttons: [{ label: "Worth it for the memories", next: true }] },
-  { bear: "travel.png", text: "I loved how naturally we connected. We're so similar, and spending time together just felt right.",
+  { bear: "travel.png", text: "After that we texted so much, and learned even more about each other. But not everything yet.",
     buttons: [{ label: "Keep going, David Bear", next: true }] },
   { bear: "flowers.png", text: "Then we started sending each other all those flowers on Insta. I hope I get to give you a real bouquet one day.",
     buttons: [{ label: "A real bouquet would be lovely", next: true }] },
@@ -29,14 +30,14 @@ const steps = [
     buttons: [{ label: "Let's pick a trail", next: true }] },
   { bear: "movie-night.png", text: "And we should have a movie date: cozy seats, a good film, and snacks to share.",
     buttons: [{ label: "You choose the movie", next: true }] },
-  { bear: "disneyland.png", text: "Maybe one day we'll make it to Disneyland together. That would be such a fun adventure!",
+  { bear: "disneyland.png", text: "One day we'll make it to Disneyland together. That would be such a fun adventure!",
     buttons: [{ label: "Disneyland date!", next: true }] },
   { bear: "letter.png", text: `So, ${NAME}, would you like to make all those future memories with me as my girlfriend? 💖`,
     final: true,
     buttons: [{ label: "Yes!", yes: true }, { label: "No", no: true }] },
 ];
 
-const noTexts = ["Are you sure?", "Really sure?", "Think again!", "David Bear is sad 🥺", "Pretty please?", "Just click Yes!"];
+const noTexts = ["Are you sure? Please reconsider.", "Really sure? Please...", "Think again!", "David Bear is sad 🥺", "Pretty please?", "Just click Yes!"];
 
 const $ = (id) => document.getElementById(id);
 const bubble = $("bubble"), choices = $("choices"), photo = $("photo");
@@ -47,7 +48,7 @@ let noCount = 0;
 const audio = {};
 for (const [k, src] of Object.entries(SOUNDS)) audio[k] = new Audio(src);
 audio.music.loop = true;
-audio.music.volume = 0.4;
+audio.music.volume = 0.08;
 
 function play(name) {
   if (muted) return;
@@ -85,7 +86,7 @@ function render(i) {
     if (b.next) el.onclick = () => { play("click"); audio.music.paused && !muted && audio.music.play().catch(() => {}); render(i + 1); };
     if (b.yes) el.onclick = celebrate;
     if (b.no) {
-      el.onclick = () => dodge(el);
+      el.onclick = () => { play("no"); dodge(el); };
       el.onmouseenter = () => noCount > 1 && dodge(el);
     }
     choices.appendChild(el);
@@ -93,7 +94,6 @@ function render(i) {
 }
 
 function dodge(el) {
-  play("click");
   bubble.textContent = noTexts[Math.min(noCount, noTexts.length - 1)];
   noCount++;
   const yes = choices.querySelector(".btn:not(.alt)");
