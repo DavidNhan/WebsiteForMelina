@@ -19,8 +19,12 @@
     </section>
 
     <div class="choices" id="choices"></div>
-    <button class="mute" id="mute" title="Sound on/off">🔊</button>
   </main>
+
+  <div class="sound-controls" role="group" aria-label="Sound controls">
+    <button class="mute" id="mute" type="button" aria-label="Turn sound off" aria-pressed="false">🔊</button>
+    <input id="musicVolume" type="range" min="0" max="8" step="1" value="8" aria-label="Background music volume">
+  </div>
 
   <script src="script.js"></script>
 </body>

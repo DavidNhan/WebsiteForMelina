@@ -27,8 +27,9 @@ The original sticker sheet is `Kuschelige Bären-Abenteuer als Stickerbogen.png`
 | File | Used for |
 |------|----------|
 | `click.mp3` | Button click |
-| `yes.mp3` | Celebration after "Yes" |
-| `music.mp3` | Looping background music (starts after first click) |
+| `Yayyy_ Sound Effect [8SoovMIylmA].mp3` | Celebration after "Yes" |
+| `Awh disappointed crowd sound effect [bR_wr5HRdl4].mp3` | Plays on "No" clicks and hover dodges |
+| `Funny Song (Original Version) by Funny Song Studio – Official Video [ORMRfFYMwVU].mp3` | Looping background music (starts after first click, capped at 8% volume) |
 
 ## Changing names or paths
 
@@ -38,5 +39,5 @@ Edit `SOUNDS`, the `steps` array and `NAME` at the top of `script.js`.
 
 - [x] Bear sticker crops
 - [ ] click.mp3
-- [ ] yes.mp3
-- [ ] music.mp3
+- [x] Yes and No sound effects
+- [x] Background music

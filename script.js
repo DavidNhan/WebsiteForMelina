@@ -2,7 +2,7 @@ const SOUNDS = {
   click: "assets/sounds/click.mp3",
   yes: "assets/sounds/Yayyy_ Sound Effect [8SoovMIylmA].mp3",
   no: "assets/sounds/Awh disappointed crowd sound effect [bR_wr5HRdl4].mp3",
-  music: "assets/sounds/music.mp3",
+  music: "assets/sounds/Funny Song (Original Version) by Funny Song Studio – Official Video [ORMRfFYMwVU].mp3",
 };
 
 const NAME = "Melina";
@@ -42,13 +42,21 @@ const noTexts = ["Are you sure? Please reconsider.", "Really sure? Please...", "
 const $ = (id) => document.getElementById(id);
 const bubble = $("bubble"), choices = $("choices"), photo = $("photo");
 const bear = $("bear"), bearFiller = $("bearFiller");
+const muteButton = $("mute"), musicVolume = $("musicVolume");
 
 let muted = false;
+let musicStarted = false;
 let noCount = 0;
 const audio = {};
 for (const [k, src] of Object.entries(SOUNDS)) audio[k] = new Audio(src);
 audio.music.loop = true;
-audio.music.volume = 0.08;
+audio.music.volume = Number(musicVolume.value) / 100;
+
+function startMusic() {
+  if (muted || musicStarted) return;
+  musicStarted = true;
+  audio.music.play().catch(() => { musicStarted = false; });
+}
 
 function play(name) {
   if (muted) return;
@@ -83,11 +91,13 @@ function render(i) {
     const el = document.createElement("button");
     el.className = "btn" + (b.no ? " alt" : "");
     el.textContent = b.label;
-    if (b.next) el.onclick = () => { play("click"); audio.music.paused && !muted && audio.music.play().catch(() => {}); render(i + 1); };
+    if (b.next) el.onclick = () => { play("click"); startMusic(); render(i + 1); };
     if (b.yes) el.onclick = celebrate;
     if (b.no) {
       el.onclick = () => { play("no"); dodge(el); };
-      el.onmouseenter = () => noCount > 1 && dodge(el);
+      el.onmouseenter = () => {
+        if (noCount > 1) { play("no"); dodge(el); }
+      };
     }
     choices.appendChild(el);
   });
@@ -125,11 +135,20 @@ function spawnHeart() {
   setTimeout(() => h.remove(), 8500);
 }
 
-$("mute").onclick = () => {
+muteButton.onclick = () => {
   muted = !muted;
-  $("mute").textContent = muted ? "🔇" : "🔊";
-  muted ? audio.music.pause() : audio.music.play().catch(() => {});
+  muteButton.textContent = muted ? "🔇" : "🔊";
+  muteButton.setAttribute("aria-label", muted ? "Turn sound on" : "Turn sound off");
+  muteButton.setAttribute("aria-pressed", String(muted));
+  Object.values(audio).forEach((sound) => { sound.muted = muted; });
+  if (muted) audio.music.pause();
+  else if (musicStarted) audio.music.play().catch(() => {});
+  else startMusic();
 };
+
+musicVolume.addEventListener("input", () => {
+  audio.music.volume = Number(musicVolume.value) / 100;
+});
 
 setInterval(() => !document.hidden && Math.random() < 0.3 && spawnHeart(), 1500);
 render(0);

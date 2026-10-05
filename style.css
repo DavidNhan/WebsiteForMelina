@@ -91,12 +91,36 @@ button.btn {
 button.btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #c9456a; }
 button.btn.alt { background: #b8a6a0; box-shadow: 0 4px 0 #8c7b75; }
 button.btn.runaway { position: fixed; }
+.sound-controls {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px;
+  background: rgba(255, 240, 243, .96);
+  border: 1px solid rgba(139, 94, 60, .16);
+  border-radius: 24px;
+  box-shadow: 0 3px 12px rgba(139, 94, 60, .14);
+}
 .mute {
-  position: absolute;
-  top: 10px; right: 12px;
+  width: 36px;
+  height: 36px;
+  padding: 0;
   border: 0; background: none;
   font-size: 1.3rem;
   cursor: pointer;
+}
+#musicVolume {
+  width: 96px;
+  accent-color: var(--pink-dark);
+  cursor: pointer;
+}
+.mute:focus-visible, #musicVolume:focus-visible {
+  outline: 2px solid var(--brown);
+  outline-offset: 2px;
 }
 #hearts { position: fixed; inset: 0; pointer-events: none; }
 .heart {
