@@ -1,16 +1,26 @@
 # Asset Guide
 
-Drop your files into the folders below using the exact names. Missing files fall back to fillers (emoji bear, dashed photo box, silence).
+The bear illustrations in `assets/images/` were cropped from the sticker sheet in this folder. The site uses them as David Bear's changing poses; after "Yes", it shows `heart.png`.
 
 ## Images (`assets/images/`)
 
-| File | Used for | Suggested size |
-|------|----------|----------------|
-| `bear.png` | Bear mascot "Bruno" (transparent PNG) | 400x400 |
-| `cairo.jpg` | Photo shown in the Cairo step | 900x500 |
-| `us.jpg` | Photo shown in the guessing step | 900x500 |
-| `celebrate.jpg` | Photo shown after she says Yes | 900x500 |
-| `favicon.png` | Browser tab icon (optional, not wired yet) | 64x64 |
+| File | Used for |
+|------|----------|
+| `travel.png` | Opening and Taiwan adventures |
+| `bubble-tea.png` | Bubble tea memory |
+| `heat.png` | Summer heat memory |
+| `dumplings.png` | Food and connection |
+| `flowers.png` | Instagram flowers and real bouquet wish |
+| `egypt.png` | Time together in Egypt |
+| `ice-skating.png` | Future date ideas |
+| `hiking.png` | Hiking date idea |
+| `movie-night.png` | Movie date idea |
+| `disneyland.png` | Disneyland date idea |
+| `letter.png` | Proposal question |
+| `heart.png` | David Bear holding a heart after "Yes" |
+| `favicon.png` | Optional browser tab icon (not wired yet) |
+
+The original sticker sheet is `Kuschelige Bären-Abenteuer als Stickerbogen.png` in this folder.
 
 ## Sounds (`assets/sounds/`)
 
@@ -26,10 +36,7 @@ Edit `SOUNDS`, the `steps` array and `NAME` at the top of `script.js`.
 
 ## Status
 
-- [ ] bear.png
-- [ ] cairo.jpg
-- [ ] us.jpg
-- [ ] celebrate.jpg
+- [x] Bear sticker crops
 - [ ] click.mp3
 - [ ] yes.mp3
 - [ ] music.mp3

@@ -1,4 +1,3 @@
-// Asset paths: replace files in /assets using the same names (see docs/ASSETS.md).
 const SOUNDS = {
   click: "assets/sounds/click.mp3",
   yes: "assets/sounds/yes.mp3",
@@ -7,24 +6,29 @@ const SOUNDS = {
 
 const NAME = "Melina";
 
-// Each step: bear text, optional photo, and buttons. "next" advances; "no" runs away.
 const steps = [
-  { text: `Hi ${NAME}! I'm Bruno the bear. I have a little surprise for you!`,
-    buttons: [{ label: "Ooh, tell me!", next: true }] },
-  { text: `I heard you're in Cairo right now. The pyramids, the Nile, so much sun!`,
-    photo: "assets/images/cairo.jpg",
-    buttons: [{ label: "Yes, it's amazing!", next: true }] },
-  { text: `Even that far away, someone is thinking of you all the time...`,
-    buttons: [{ label: "Who? 👀", next: true }] },
-  { text: `Someone who thinks you're kind, funny and wonderful. Can you guess what he wants to ask?`,
-    photo: "assets/images/us.jpg",
-    buttons: [{ label: "Maybe...", next: true }, { label: "No idea!", next: true }] },
-  { text: `${NAME}, will you be my girlfriend? 💖`,
+  { bear: "travel.png", text: `Hi ${NAME}! I'm David Bear. I have a little story for you. Shall we begin?`,
+    buttons: [{ label: "Let's go!", next: true }] },
+  { bear: "travel.png", text: "It started in Taiwan, at Summer School. We explored Alishan and Kenting, and made so many lovely memories.",
+    buttons: [{ label: "I remember!", next: true }] },
+  { bear: "bubble-tea.png", text: "We drank so much bubble tea, ate such good food, and somehow survived that incredible summer heat together!",
+    buttons: [{ label: "That heat!", next: true }] },
+  { bear: "heat.png", text: "We really did suffer through that heat together. Somehow it just became another favorite memory of ours.",
+    buttons: [{ label: "Worth it for the memories", next: true }] },
+  { bear: "dumplings.png", text: "I loved how naturally we connected. We're so similar, and spending time together just felt right.",
+    buttons: [{ label: "Keep going, David Bear", next: true }] },
+  { bear: "flowers.png", text: "Then we started sending each other all those flowers on Instagram Reels. I hope I get to give you a real bouquet one day.",
+    buttons: [{ label: "A real bouquet would be lovely", next: true }] },
+  { bear: "egypt.png", text: "Now I'm in Egypt too, and I really like spending time with you and seeing all these things together.",
+    buttons: [{ label: "Me too", next: true }] },
+  { bear: "ice-skating.png", text: "I hope we have lots more dates ahead: ice skating, hiking, movie nights, and maybe even Disneyland!",
+    buttons: [{ label: "That sounds wonderful", next: true }] },
+  { bear: "letter.png", text: `So, ${NAME}, would you like to make all those future memories with me as my girlfriend? 💖`,
     final: true,
     buttons: [{ label: "Yes!", yes: true }, { label: "No", no: true }] },
 ];
 
-const noTexts = ["Are you sure?", "Really sure?", "Think again!", "Bruno is sad 🥺", "Pretty please?", "Just click Yes!"];
+const noTexts = ["Are you sure?", "Really sure?", "Think again!", "David Bear is sad 🥺", "Pretty please?", "Just click Yes!"];
 
 const $ = (id) => document.getElementById(id);
 const bubble = $("bubble"), choices = $("choices"), photo = $("photo");
@@ -43,9 +47,12 @@ function play(name) {
   audio[name].play().catch(() => {}); // file may not exist yet
 }
 
-// Show the real bear image if present, else the emoji filler.
-bear.classList.add("hidden");
-bear.onload = () => { bear.classList.remove("hidden"); bearFiller.classList.add("hidden"); };
+function setBear(src) {
+  bear.classList.add("hidden");
+  bear.onload = () => { bear.classList.remove("hidden"); bearFiller.classList.add("hidden"); };
+  bear.onerror = () => { bearFiller.classList.remove("hidden"); };
+  bear.src = `assets/images/${src}`;
+}
 
 function setPhoto(src) {
   if (!src) { photo.classList.remove("show"); return; }
@@ -60,6 +67,7 @@ function render(i) {
   const s = steps[i];
   bubble.textContent = s.text;
   bubble.style.animation = "none"; bubble.offsetWidth; bubble.style.animation = "";
+  setBear(s.bear);
   setPhoto(s.photo);
   choices.innerHTML = "";
   s.buttons.forEach((b) => {
@@ -92,8 +100,8 @@ function dodge(el) {
 function celebrate() {
   play("yes");
   [bear, bearFiller].forEach((e) => e.classList.add("happy"));
-  setPhoto("assets/images/celebrate.jpg");
-  bubble.textContent = `Yaaay! Thank you ${NAME}! Bruno is the happiest bear in the world! 🎉💖`;
+  setBear("heart.png");
+  bubble.textContent = `Yaaay! Thank you, ${NAME}! David Bear is giving you his heart. I can't wait for all our little adventures together! 🎉💖`;
   choices.innerHTML = "";
   for (let i = 0; i < 60; i++) setTimeout(spawnHeart, i * 80);
 }
@@ -115,6 +123,5 @@ $("mute").onclick = () => {
   muted ? audio.music.pause() : audio.music.play().catch(() => {});
 };
 
-bear.src = "assets/images/bear.png";
 setInterval(() => !document.hidden && Math.random() < 0.3 && spawnHeart(), 1500);
 render(0);
