@@ -7,13 +7,13 @@ const SOUNDS = {
 
 const NAME = "Melina";
 const COMPLIMENT_CARDS = [
-  { label: "The way we connect", text: "I love how naturally we connected. Being with you feels easy." },
+  { label: "The way we connect", text: "I love how naturally we connected. I can just be me being around you." },
   { label: "How similar we are", text: "We have so much in common, and I love how understood you make me feel." },
-  { label: "Your company", text: "I genuinely enjoy spending time with you." },
-  { label: "Your Insta flowers", text: "Your flower reels always make me smile. I hope I can bring you real flowers one day." },
-  { label: "Exploring together", text: "I love discovering places and making memories with you." },
-  { label: "Our conversations", text: "I like how we can keep learning more about each other." },
-  { label: "The little moments", text: "Even ordinary moments feel special when I get to spend them with you." },
+  { label: "Your humor", text: "You are genuinely funny and always make me laugh." },
+  { label: "How you think", text: "You are just cute." },
+  { label: "Open mindeu", text: "I love how you are so open minded about so many things." },
+  { label: "You're strong", text: "How strong you are, leading, organizing, planning for your friends and family." },
+  { label: "Your smile", text: "Even diamonds would melt in the warmth of your smile." },
   { label: "So much more", text: "These are just a few of the things I like about you. There are so many more." },
 ];
 
