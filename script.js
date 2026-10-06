@@ -6,6 +6,7 @@ const SOUNDS = {
 };
 
 const NAME = "Melina";
+const COMPLIMENT_MESSAGE = "I love how naturally we connect and how much we have in common. You're so easy to be around, and I always enjoy spending time with you.";
 
 const steps = [
   { bear: "travel.png", text: `Hi ${NAME}! I'm David Bear. I have a little story for you. Shall we begin?`,
@@ -24,6 +25,8 @@ const steps = [
     buttons: [{ label: "A real bouquet would be lovely", next: true }] },
   { bear: "egypt.png", text: "Now I'm in Egypt too, and I really like spending time with you and seeing all these things together.",
     buttons: [{ label: "Me too", next: true }] },
+  { bear: "flowers.png", text: COMPLIMENT_MESSAGE,
+    buttons: [{ label: "That's so sweet", next: true }] },
   { bear: "ice-skating.png", text: "I hope we can go ice skating together sometime. I promise to try not to fall too much!",
     buttons: [{ label: "I'd hold your hand", next: true }] },
   { bear: "hiking.png", text: "I'd love to go hiking with you too and find a beautiful view to enjoy together.",
