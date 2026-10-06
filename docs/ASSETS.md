@@ -33,7 +33,7 @@ The original sticker sheet is `Kuschelige Bären-Abenteuer als Stickerbogen.png`
 
 ## Changing names or paths
 
-Edit `SOUNDS`, the `steps` array and `NAME` at the top of `script.js`.
+Edit `COMPLIMENT_CARDS` near the top of `script.js` to change the eight revealed compliments. Edit the matching entry in `steps` to change the screen heading or its bear image. `NAME` and `SOUNDS` are in the same file.
 
 ## Status
 

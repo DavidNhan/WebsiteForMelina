@@ -13,7 +13,12 @@ body {
   background: linear-gradient(160deg, #ffe5ec, #ffc2d1 55%, #ffd6a5);
   font-family: "Trebuchet MS", "Segoe UI", sans-serif;
   color: var(--brown);
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+body.compliment-view {
+  display: block;
+  padding: 20px 0 40px;
 }
 .card {
   position: relative;
@@ -68,6 +73,8 @@ body {
 .bear-filler { font-size: 100px; line-height: 1; width: auto; }
 .bear-filler.hidden, .bear.hidden { display: none; }
 .bear.happy, .bear-filler.happy { animation: jump .5s ease infinite; }
+.card.compliment-mode { width: min(94vw, 600px); }
+.compliment-mode .bear { width: 190px; }
 .choices {
   display: flex;
   justify-content: center;
@@ -75,6 +82,12 @@ body {
   gap: 12px;
   margin-top: 18px;
   min-height: 52px;
+}
+.choices.compliment-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  min-height: 0;
 }
 button.btn {
   font: inherit;
@@ -88,6 +101,36 @@ button.btn {
   box-shadow: 0 4px 0 #c9456a;
   transition: transform .1s;
 }
+button.btn.compliment-card {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  min-height: 112px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 10px;
+  border-radius: 16px;
+  background: #fff;
+  color: var(--brown);
+  box-shadow: 0 3px 0 rgba(139, 94, 60, .18);
+  line-height: 1.35;
+  text-align: center;
+  white-space: normal;
+}
+.compliment-card .compliment-cue {
+  font-size: .78rem;
+  font-weight: normal;
+  opacity: .72;
+}
+button.btn.compliment-card.revealed {
+  background: #ffe0e9;
+  cursor: default;
+}
+button.btn.compliment-card:disabled { opacity: 1; }
+button.btn.compliment-next { grid-column: 1 / -1; justify-self: center; }
+button.btn.compliment-next:disabled { cursor: not-allowed; opacity: .65; }
 button.btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #c9456a; }
 button.btn.alt { background: #b8a6a0; box-shadow: 0 4px 0 #8c7b75; }
 button.btn.runaway { position: fixed; }

@@ -6,7 +6,16 @@ const SOUNDS = {
 };
 
 const NAME = "Melina";
-const COMPLIMENT_MESSAGE = "I love how naturally we connect and how much we have in common. You're so easy to be around, and I always enjoy spending time with you.";
+const COMPLIMENT_CARDS = [
+  { label: "The way we connect", text: "I love how naturally we connected. Being with you feels easy." },
+  { label: "How similar we are", text: "We have so much in common, and I love how understood you make me feel." },
+  { label: "Your company", text: "I genuinely enjoy spending time with you." },
+  { label: "Your Insta flowers", text: "Your flower reels always make me smile. I hope I can bring you real flowers one day." },
+  { label: "Exploring together", text: "I love discovering places and making memories with you." },
+  { label: "Our conversations", text: "I like how we can keep learning more about each other." },
+  { label: "The little moments", text: "Even ordinary moments feel special when I get to spend them with you." },
+  { label: "So much more", text: "These are just a few of the things I like about you. There are so many more." },
+];
 
 const steps = [
   { bear: "travel.png", text: `Hi ${NAME}! I'm David Bear. I have a little story for you. Shall we begin?`,
@@ -25,8 +34,7 @@ const steps = [
     buttons: [{ label: "A real bouquet would be lovely", next: true }] },
   { bear: "egypt.png", text: "Now I'm in Egypt too, and I really like spending time with you and seeing all these things together.",
     buttons: [{ label: "Me too", next: true }] },
-  { bear: "flowers.png", text: COMPLIMENT_MESSAGE,
-    buttons: [{ label: "That's so sweet", next: true }] },
+  { bear: "travel.png", text: "What I like about you, just to name a few (from so many things).", cards: COMPLIMENT_CARDS },
   { bear: "ice-skating.png", text: "I hope we can go ice skating together sometime. I promise to try not to fall too much!",
     buttons: [{ label: "I'd hold your hand", next: true }] },
   { bear: "hiking.png", text: "I'd love to go hiking with you too and find a beautiful view to enjoy together.",
@@ -45,6 +53,7 @@ const noTexts = ["Are you sure? Please reconsider.", "Really sure? Please...", "
 const $ = (id) => document.getElementById(id);
 const bubble = $("bubble"), choices = $("choices"), photo = $("photo");
 const bear = $("bear"), bearFiller = $("bearFiller");
+const mainCard = document.querySelector(".card");
 const muteButton = $("mute"), musicVolume = $("musicVolume");
 
 let muted = false;
@@ -85,11 +94,54 @@ function setPhoto(src) {
 
 function render(i) {
   const s = steps[i];
+  const showingCompliments = Boolean(s.cards);
+  document.body.classList.toggle("compliment-view", showingCompliments);
+  mainCard.classList.toggle("compliment-mode", showingCompliments);
+  choices.classList.toggle("compliment-grid", showingCompliments);
   bubble.textContent = s.text;
   bubble.style.animation = "none"; bubble.offsetWidth; bubble.style.animation = "";
   setBear(s.bear);
   setPhoto(s.photo);
   choices.innerHTML = "";
+  if (s.cards) {
+    let revealedCount = 0;
+    const continueButton = document.createElement("button");
+    continueButton.className = "btn compliment-next";
+    continueButton.textContent = "Reveal all 8 to continue";
+    continueButton.disabled = true;
+    continueButton.onclick = () => { play("click"); startMusic(); render(i + 1); };
+
+    s.cards.forEach((item) => {
+      const el = document.createElement("button");
+      const label = document.createElement("span");
+      const hint = document.createElement("span");
+      el.className = "btn compliment-card";
+      el.type = "button";
+      el.setAttribute("aria-label", `Tap to reveal: ${item.label}`);
+      el.setAttribute("aria-pressed", "false");
+      label.textContent = item.label;
+      hint.className = "compliment-cue";
+      hint.textContent = "Tap to reveal";
+      el.append(label, hint);
+      el.onclick = () => {
+        el.textContent = item.text;
+        el.classList.add("revealed");
+        el.setAttribute("aria-label", item.text);
+        el.setAttribute("aria-pressed", "true");
+        el.disabled = true;
+        play("click");
+        revealedCount++;
+        if (revealedCount === s.cards.length) {
+          continueButton.textContent = "Continue";
+          continueButton.disabled = false;
+        }
+      };
+      choices.appendChild(el);
+    });
+    choices.appendChild(continueButton);
+    return;
+  }
+
   s.buttons.forEach((b) => {
     const el = document.createElement("button");
     el.className = "btn" + (b.no ? " alt" : "");
